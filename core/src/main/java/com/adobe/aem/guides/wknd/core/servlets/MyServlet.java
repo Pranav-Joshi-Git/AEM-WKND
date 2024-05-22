@@ -34,4 +34,7 @@ public class MyServlet extends SlingAllMethodsServlet {
 
 /*Create a POST API(provide basic auth as aem username and password) in postman to hit and test this servlet
 http://localhost:4502/content/wknd/us/en.myServlet.json
+
+Check the response in logger file
+
  */
