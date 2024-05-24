@@ -102,3 +102,14 @@ public class ArticleListModel {
         return articleListDataBeanArrayList;
     }
 }
+
+
+/*
+TODO: Refactor this code
+
+Refer the link to refactor the code:
+Ideally, we should create an interface and impl class for ArticleList Model where everything is handled
+
+
+https://sankhamtech.com/index.php/courses/aem-backend-concepts/lessons/improving-aem-sling-model-with-service-layer-integration/
+ */

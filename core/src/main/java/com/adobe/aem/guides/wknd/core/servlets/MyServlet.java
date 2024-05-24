@@ -7,7 +7,6 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
-import org.eclipse.jetty.server.ResponseWriter;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -25,7 +24,7 @@ import java.io.IOException;
         methods = HttpConstants.METHOD_POST)
 public class MyServlet extends SlingAllMethodsServlet {
 
-    @Reference
+    @Reference(target = "(country=us)")
     public MyService myService; //Here we will refer the interface(not impl class)
     public static final Logger LOGGER = LoggerFactory.getLogger(MyServlet.class);
 
@@ -33,7 +32,8 @@ public class MyServlet extends SlingAllMethodsServlet {
     protected void doPost(final SlingHttpServletRequest req,
                           final SlingHttpServletResponse res) throws ServletException, IOException{
         LOGGER.info("Servlet Code Started!");
-        myService.printLogger();
+        String returnValue = myService.printLogger();
+        LOGGER.info(returnValue);
     }
 }
 
@@ -45,8 +45,8 @@ Check the response in logger file
 
 
 -----PostScript: Used Service in this Servlet-----
-SERVICES FLOW:
-BUILD TIME:
+?SERVICES FLOW:
+?BUILD TIME:
 We have written our interface and implementation class(MyService) and build this code:
 It will be part of an AEM bundle - Which will get deployed in AEM application
 Bundle follows its lifecycle:
@@ -54,7 +54,7 @@ It goes to installed state, it will try to resolve all dependencies
 
 It will analyse that MyServiceImpl is dependent on MyService - it will create relationship(Memory mapping)
 
-RUNTIME:
+?RUNTIME:
 When we trigger or call our servlet
 It comes into Servlet class and finds the @Reference(Which means that some service has been referenced)
 Since this reference is of Interface(not Impl class)
@@ -63,7 +63,15 @@ And it will create an Object for that impl class(not interface object)
 And that object will be injected by the OSGI framework into "myService" variable which we have defined
 
 
-WHAT IF?
+*WHAT IF?
 There are two implementations of the same Interface, which one will it refer?
+
+It can be covered with the help of filters...
+
+!We need to distinguish it at component registry level of impl classes
+The Property which we are defining inside @Component of impl class
+At Build time it will register both the impl classes with this property (country=us OR country=in)
+And to mention is We will be adding target="(country=us)" or target="(country=in)"
+
 
  */
