@@ -18,7 +18,7 @@ The main parts of the template are:
 
 ## How to build
 
-Refer this link for better understanding of Maven Commands:
+Refer this link for better understanding of Maven Commands related to build and deployments:
 https://experienceleaguecommunities.adobe.com/t5/adobe-experience-manager/maven-commands-for-aem-aem-community-blog-seeding/m-p/388627
 
 To build all the modules run in the project root directory the following command with Maven 3:
